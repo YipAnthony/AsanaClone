@@ -1,0 +1,26 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    background-color: grey;
+    padding-left: 20px;
+    height: 100vh;
+}
+
+.sidebar .sidebarRow {
+    position: relative;
+}
+
+.sidebar .sidebarLogo {
+    width: fit-content;
+    display: inline;
+}
+
+.sidebar .sidebarToggleIcon {
+    position: absolute;
+    right: 5px;
+}
+
+.sidebar .sidebarButtons {
+    align-self: start;
+}
