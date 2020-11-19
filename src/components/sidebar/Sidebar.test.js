@@ -31,4 +31,13 @@ describe("<Sidebar /> component", () => {
         expect(wrapper.text()).toContain("Team 2")
         expect(wrapper.text()).toContain("Team 3")
     })
+
+    it ("selects Home button on initial render", () => {
+        expect(wrapper.find('.homeSelected').at(0).is('span')).toEqual(true);
+    })
+
+    it ("highlights My Tasks when selected", () => {
+        wrapper.find('.sidebarMyTasksButton').at(0).simulate('click')
+        expect(wrapper.find(".myTasksSelected").at(0).hasClass('sidebarSelected')).toEqual(true)
+    })
 })

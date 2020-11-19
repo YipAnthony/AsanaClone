@@ -8,25 +8,37 @@ import CheckIcon from '@material-ui/icons/CheckCircle'
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography'
 import ToggleIcon from '@material-ui/icons/MenuOpen';
-
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import AddIcon from '@material-ui/icons/Add';
 
 export default function Sidebar(props) {
 
     const { assignedTeams } = props
 
+    const [ sidebarSelection, setSidebarSelection ] = useState("Home")
+
+    const handleClick = (e) => {
+        const selection = e.target.innerHTML
+        console.log(selection)
+        setSidebarSelection(selection)
+    }
+
     return (
         <div className="sidebar">
             <span className="sidebarRow d-flex">
-                <Typography className="sidebarLogo" variant="subtitle1">Asana-clone</Typography>
+                <Typography className="sidebarLogo" variant="h5"><strong>clonasana</strong></Typography>
                 <Button 
                     className="sidebarToggleIcon sidebarButtons" 
                     color="primary" 
                 >{<ToggleIcon />}</Button>
             </span>
 
-            <Button className="sidebarHomeButton sidebarButtons" color="primary" startIcon={<HomeIcon />}>Home</Button>
-            <Button className="sidebarMyTasksButton sidebarButtons" color="primary" startIcon={<CheckIcon />}>My Tasks</Button>
-            
+            <span className={sidebarSelection === "Home" ? "sidebarSelected homeSelected": null} data-test="homeSelected">
+                <Button className="sidebarHomeButton sidebarButtons" onClick={() => setSidebarSelection("Home")} color="primary" startIcon={<HomeIcon />}>Home</Button>
+            </span>
+            <span className={sidebarSelection === "My Tasks" ? "sidebarSelected myTasksSelected": null}>
+                <Button className="sidebarMyTasksButton sidebarButtons" onClick={() => setSidebarSelection("My Tasks")} color="primary" startIcon={<CheckIcon />}>My Tasks</Button>
+            </span>
             <Divider light />
 
             <Typography variant="caption">Teams</Typography>
@@ -34,11 +46,24 @@ export default function Sidebar(props) {
             {assignedTeams.length > 0 && (
                 <> 
                     {assignedTeams.map(team => {
-                            return <Button key={team['name']}> {team['name']} </Button>
+                            const { name } = team
+                            return (
+                                <span key={name} className={sidebarSelection === name ? `sidebarSelected ${name}Selected`: null}>
+                                    <Button  
+                                        startIcon={<ArrowDropDownIcon />}
+                                        className="sidebarButtons"
+                                        onClick={() => setSidebarSelection(name)} 
+                                    > 
+                                        {name} 
+                                    </Button>
+                                </span>
+                            )
                     })}
                 </>
             )}
-            
+            <span className={sidebarSelection === "Add Team" ? "sidebarSelected": null}>
+                <Button className=" sidebarButtons" color="primary" startIcon={<AddIcon />}>Add Team</Button>
+            </span>
 
         </div>
     )
