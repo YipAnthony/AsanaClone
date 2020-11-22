@@ -11,11 +11,16 @@ import ToggleIcon from '@material-ui/icons/MenuOpen';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import AddIcon from '@material-ui/icons/Add';
 
+const sidebarMinimizedStyle = {
+    width: "50px"
+}
+
 export default function Sidebar(props) {
 
     const { assignedTeams } = props
 
     const [ sidebarSelection, setSidebarSelection ] = useState("Home")
+    const [ toggleSidebar, setToggleSidebar ] = useState(true)
 
     const handleClick = (e) => {
         const selection = e.target.innerHTML
@@ -23,47 +28,56 @@ export default function Sidebar(props) {
         setSidebarSelection(selection)
     }
 
+    const handleToggleIconClick = () => {
+        setToggleSidebar(prev => !prev)
+    }
+
     return (
-        <div className="sidebar">
+        <div className="sidebar" style={toggleSidebar ? null: sidebarMinimizedStyle}>
             <span className="sidebarRow d-flex">
-                <Typography className="sidebarLogo" variant="h5"><strong>clonasana</strong></Typography>
+                {toggleSidebar ? <Typography className="sidebarLogo" variant="h5"><strong>clonasana</strong></Typography>
+                    :null}
                 <Button 
                     className="sidebarToggleIcon sidebarButtons" 
                     color="primary" 
+                    onClick={handleToggleIconClick}
                 >{<ToggleIcon />}</Button>
             </span>
+            {toggleSidebar ? 
+                <>
+                    <span className={sidebarSelection === "Home" ? "sidebarSelected homeSelected": null} data-test="homeSelected">
+                        <Button className="sidebarHomeButton sidebarButtons" onClick={() => setSidebarSelection("Home")} color="primary" startIcon={<HomeIcon />}>Home</Button>
+                    </span>
+                    <span className={sidebarSelection === "My Tasks" ? "sidebarSelected myTasksSelected": null}>
+                        <Button className="sidebarMyTasksButton sidebarButtons" onClick={() => setSidebarSelection("My Tasks")} color="primary" startIcon={<CheckIcon />}>My Tasks</Button>
+                    </span>
+                    <Divider light />
 
-            <span className={sidebarSelection === "Home" ? "sidebarSelected homeSelected": null} data-test="homeSelected">
-                <Button className="sidebarHomeButton sidebarButtons" onClick={() => setSidebarSelection("Home")} color="primary" startIcon={<HomeIcon />}>Home</Button>
-            </span>
-            <span className={sidebarSelection === "My Tasks" ? "sidebarSelected myTasksSelected": null}>
-                <Button className="sidebarMyTasksButton sidebarButtons" onClick={() => setSidebarSelection("My Tasks")} color="primary" startIcon={<CheckIcon />}>My Tasks</Button>
-            </span>
-            <Divider light />
-
-            <Typography variant="caption">Teams</Typography>
-            
-            {assignedTeams.length > 0 && (
-                <> 
-                    {assignedTeams.map(team => {
-                            const { name } = team
-                            return (
-                                <span key={name} className={sidebarSelection === name ? `sidebarSelected ${name}Selected`: null}>
-                                    <Button  
-                                        startIcon={<ArrowDropDownIcon />}
-                                        className="sidebarButtons"
-                                        onClick={() => setSidebarSelection(name)} 
-                                    > 
-                                        {name} 
-                                    </Button>
-                                </span>
-                            )
-                    })}
-                </>
-            )}
-            <span className={sidebarSelection === "Add Team" ? "sidebarSelected": null}>
-                <Button className=" sidebarButtons" color="primary" startIcon={<AddIcon />}>Add Team</Button>
-            </span>
+                    <Typography variant="caption">Teams</Typography>
+                        
+                    {assignedTeams.length > 0 && (
+                        <> 
+                            {assignedTeams.map(team => {
+                                    const { name } = team
+                                    return (
+                                        <span key={name} className={sidebarSelection === name ? `sidebarSelected ${name}Selected`: null}>
+                                            <Button  
+                                                startIcon={<ArrowDropDownIcon />}
+                                                className="sidebarButtons"
+                                                onClick={() => setSidebarSelection(name)} 
+                                            > 
+                                                {name} 
+                                            </Button>
+                                        </span>
+                                    )
+                            })}
+                        </>
+                    )}
+                    <span className={sidebarSelection === "Add Team" ? "sidebarSelected": null}>
+                        <Button className=" sidebarButtons" color="primary" startIcon={<AddIcon />}>Add Team</Button>
+                    </span>
+                </>:null}
+           
 
         </div>
     )

@@ -3,10 +3,6 @@ import { shallow, mount } from 'enzyme'
 
 import PropTypes from 'prop-types'
 
-// Sidebar.propTypes = {
-//   assignedTeams: PropTypes.array.isRequired
-// }
-
 describe("<Sidebar /> component", () => {
     
     const assignedTeams = [
@@ -39,5 +35,10 @@ describe("<Sidebar /> component", () => {
     it ("highlights My Tasks when selected", () => {
         wrapper.find('.sidebarMyTasksButton').at(0).simulate('click')
         expect(wrapper.find(".myTasksSelected").at(0).hasClass('sidebarSelected')).toEqual(true)
+    })
+
+    it ("expands/closes sidebar when clicking toggle icon", () => {
+        wrapper.find('.sidebarToggleIcon').at(0).simulate('click')
+        expect(wrapper.find('.sidebar').children().length).toBe(1)
     })
 })
