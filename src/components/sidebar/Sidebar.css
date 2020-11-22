@@ -1,10 +1,15 @@
+:root {
+    --asanaSidebarBackground: #151b26
+}
+
 .sidebar {
     display: flex;
     flex-direction: column;
     width: 200px;
-    background-color: rgba(128, 128, 128, 0.404);
+    background-color: var(--asanaSidebarBackground);
     padding-left: 20px;
     height: 100vh;
+    color: white;
 }
 
 .sidebar .sidebarRow {
@@ -23,8 +28,26 @@
 
 .sidebar .sidebarButtons {
     align-self: start;
+    /* width: 100%; */
+}
+
+
+
+.MuiDivider-root {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    height: 2px !important;
+}
+
+.MuiDivider-light {
+    background-color:#273240 !important;
+}
+
+.sidebarSpan:hover {
+    cursor: pointer;
+    background-color: #272d37;
 }
 
 .sidebarSelected {
-    background-color: rgba(128, 128, 128, 0.692);;
+    background-color: #3b4049 !important;
 }

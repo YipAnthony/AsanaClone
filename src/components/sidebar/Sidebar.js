@@ -11,8 +11,22 @@ import ToggleIcon from '@material-ui/icons/MenuOpen';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import AddIcon from '@material-ui/icons/Add';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#cbd4db'
+      }
+    }
+  });
+
 const sidebarMinimizedStyle = {
     width: "50px"
+}
+
+const sidebarButtonStyle = {
+    // textAlign: 'left'
 }
 
 export default function Sidebar(props) {
@@ -33,25 +47,28 @@ export default function Sidebar(props) {
     }
 
     return (
+        <MuiThemeProvider theme={theme}>
         <div className="sidebar" style={toggleSidebar ? null: sidebarMinimizedStyle}>
-            <span className="sidebarRow d-flex">
+            <div className="sidebarRow d-flex">
                 {toggleSidebar ? <Typography className="sidebarLogo" variant="h5"><strong>clonasana</strong></Typography>
                     :null}
+                
                 <Button 
+                    theme={theme}
                     className="sidebarToggleIcon sidebarButtons" 
                     color="primary" 
                     onClick={handleToggleIconClick}
                 >{<ToggleIcon />}</Button>
-            </span>
+            </div>
             {toggleSidebar ? 
                 <>
-                    <span className={sidebarSelection === "Home" ? "sidebarSelected homeSelected": null} data-test="homeSelected">
-                        <Button className="sidebarHomeButton sidebarButtons" onClick={() => setSidebarSelection("Home")} color="primary" startIcon={<HomeIcon />}>Home</Button>
+                    <span className={sidebarSelection === "Home" ? "sidebarSelected homeSelected sidebarSpan": "sidebarSpan"} onClick={() => setSidebarSelection("Home")} data-test="homeSelected">
+                        <Button className="sidebarHomeButton sidebarButtons"  color="primary" startIcon={<HomeIcon />}>Home</Button>
                     </span>
-                    <span className={sidebarSelection === "My Tasks" ? "sidebarSelected myTasksSelected": null}>
+                    <span className={sidebarSelection === "My Tasks" ? "sidebarSelected myTasksSelected sidebarSpan": "sidebarSpan"} onClick={() => setSidebarSelection("My Tasks")}>
                         <Button className="sidebarMyTasksButton sidebarButtons" onClick={() => setSidebarSelection("My Tasks")} color="primary" startIcon={<CheckIcon />}>My Tasks</Button>
                     </span>
-                    <Divider light />
+                    <Divider light/>
 
                     <Typography variant="caption">Teams</Typography>
                         
@@ -60,10 +77,11 @@ export default function Sidebar(props) {
                             {assignedTeams.map(team => {
                                     const { name } = team
                                     return (
-                                        <span key={name} className={sidebarSelection === name ? `sidebarSelected ${name}Selected`: null}>
+                                        <span key={name} className={sidebarSelection === name ? `sidebarSelected ${name}Selected sidebarSpan`: "sidebarSpan"} onClick={() => setSidebarSelection(name)} >
                                             <Button  
                                                 startIcon={<ArrowDropDownIcon />}
                                                 className="sidebarButtons"
+                                                color="primary"
                                                 onClick={() => setSidebarSelection(name)} 
                                             > 
                                                 {name} 
@@ -73,13 +91,14 @@ export default function Sidebar(props) {
                             })}
                         </>
                     )}
-                    <span className={sidebarSelection === "Add Team" ? "sidebarSelected": null}>
-                        <Button className=" sidebarButtons" color="primary" startIcon={<AddIcon />}>Add Team</Button>
+                    <span className={sidebarSelection === "Add Team" ? "sidebarSelected sidebarSpan": "sidebarSpan"}>
+                        <Button style={sidebarButtonStyle} className=" sidebarButtons" color="primary" startIcon={<AddIcon />}>Add Team</Button>
                     </span>
+                    <Divider light/>
                 </>:null}
            
 
-        </div>
+        </div></MuiThemeProvider>
     )
 }
 
