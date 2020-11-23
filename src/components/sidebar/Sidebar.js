@@ -40,6 +40,7 @@ export default function Sidebar(props) {
 
     const [ sidebarSelection, setSidebarSelection ] = useState("Home")
     const [ toggleSidebar, setToggleSidebar ] = useState(true)
+    const [ toggleTeams, setToggleTeams ] = useState(true)
 
     const handleClick = (e) => {
         const selection = e.target.innerHTML
@@ -85,30 +86,36 @@ export default function Sidebar(props) {
                     </span>
                     <Divider light/>
 
-                    <Typography variant="caption">Teams</Typography>
-                        
-                    {assignedTeams.length > 0 && (
-                        <> 
-                            {assignedTeams.map(team => {
-                                    const { name } = team
-                                    return (
-                                        <span key={name} className={sidebarSelection === name ? `sidebarSelected ${name}Selected sidebarSpan`: "sidebarSpan"} onClick={() => setSidebarSelection(name)} >
-                                            <Button  
-                                                startIcon={<ArrowDropDownIcon />}
-                                                className="sidebarButtons"
-                                                color="primary"
-                                                onClick={() => setSidebarSelection(name)} 
-                                            > 
-                                                {name} 
-                                            </Button>
-                                        </span>
-                                    )
-                            })}
-                        </>
-                    )}
-                    <span className={sidebarSelection === "Add Team" ? "sidebarSelected sidebarSpan": "sidebarSpan"}>
-                        <Button style={sidebarButtonStyle} className=" sidebarButtons" color="primary" startIcon={<AddIcon />}>Add Team</Button>
+                    <span className="teamsRow" onClick={() => setToggleTeams(prev => !prev)}>
+                        <Typography variant="h6">Teams </Typography>
+                        <ArrowDropDownIcon className="teamsIcon"/>
                     </span>
+                    {toggleTeams ? 
+                        <>
+                            {assignedTeams.length > 0 && (
+                            <> 
+                                {assignedTeams.map(team => {
+                                        const { name } = team
+                                        return (
+                                            <span key={name} className={sidebarSelection === name ? `sidebarSelected ${name}Selected sidebarSpan`: "sidebarSpan"} onClick={() => setSidebarSelection(name)} >
+                                                <Button  
+                                                    startIcon={<ArrowDropDownIcon />}
+                                                    className="sidebarButtons"
+                                                    color="primary"
+                                                    onClick={() => setSidebarSelection(name)} 
+                                                > 
+                                                    {name} 
+                                                </Button>
+                                            </span>
+                                        )
+                                })}
+                            </>
+                            )}
+                            <span className={sidebarSelection === "Add Team" ? "sidebarSelected sidebarSpan": "sidebarSpan"}>
+                                <Button style={sidebarButtonStyle} className=" sidebarButtons" color="primary" startIcon={<AddIcon />}>Add Team</Button>
+                            </span>
+                        </>:null}    
+                   
                     <Divider light/>
                 </>:null}
            

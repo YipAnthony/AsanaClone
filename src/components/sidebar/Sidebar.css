@@ -10,12 +10,12 @@
     padding-left: 20px;
     height: 100vh;
     color: white;
-    transition-duration: .5s;
+    transition-duration: .2s;
 }
 
 .sidebarMinimized {
     width: 0px;
-    transition-duration: .5s;
+    transition-duration: .2s;
 }
 
 .sidebar .sidebarRow {
@@ -56,4 +56,18 @@
 
 .sidebarSelected {
     background-color: #3b4049 !important;
+}
+
+.teamsRow {
+    display: flex;
+}
+
+.teamsRow:hover {
+    cursor: pointer;
+}
+
+.teamsIcon {
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
 }
