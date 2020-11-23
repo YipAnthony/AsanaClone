@@ -11,6 +11,7 @@
     height: 100vh;
     color: white;
     transition-duration: .2s;
+    margin: 0;
 }
 
 .sidebarMinimized {
@@ -20,6 +21,7 @@
 
 .sidebar .sidebarRow {
     position: relative;
+    margin-top: 18px;
 }
 
 .sidebar .sidebarLogo {
@@ -60,14 +62,15 @@
 
 .teamsRow {
     display: flex;
+    position: relative;
+}
+
+.teamsRow .teamsIcon{
+    position: absolute;
+    right: 15px;
+    margin-top: 5px;
 }
 
 .teamsRow:hover {
     cursor: pointer;
-}
-
-.teamsIcon {
-    position: relative;
-    margin-top: auto;
-    margin-bottom: auto;
 }

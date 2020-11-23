@@ -8,7 +8,8 @@ import CheckIcon from '@material-ui/icons/CheckCircle'
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography'
 import ToggleIcon from '@material-ui/icons/MenuOpen';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ExpandLess';
+import ArrowDropDownIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 
@@ -36,17 +37,9 @@ const sidebarButtonStyle = {
 
 export default function Sidebar(props) {
 
-    const { assignedTeams } = props
+    const { assignedTeams, sidebarSelection, setSidebarSelection, toggleSidebar, setToggleSidebar } = props
 
-    const [ sidebarSelection, setSidebarSelection ] = useState("Home")
-    const [ toggleSidebar, setToggleSidebar ] = useState(true)
     const [ toggleTeams, setToggleTeams ] = useState(true)
-
-    const handleClick = (e) => {
-        const selection = e.target.innerHTML
-        console.log(selection)
-        setSidebarSelection(selection)
-    }
 
     const handleToggleIconClick = () => {
         setToggleSidebar(prev => !prev)
@@ -88,7 +81,7 @@ export default function Sidebar(props) {
 
                     <span className="teamsRow" onClick={() => setToggleTeams(prev => !prev)}>
                         <Typography variant="h6">Teams </Typography>
-                        <ArrowDropDownIcon className="teamsIcon"/>
+                        {toggleTeams ? <ArrowDropUpIcon className="teamsIcon"/> : <ArrowDropDownIcon className="teamsIcon"/>}
                     </span>
                     {toggleTeams ? 
                         <>
@@ -114,10 +107,10 @@ export default function Sidebar(props) {
                             <span className={sidebarSelection === "Add Team" ? "sidebarSelected sidebarSpan": "sidebarSpan"}>
                                 <Button style={sidebarButtonStyle} className=" sidebarButtons" color="primary" startIcon={<AddIcon />}>Add Team</Button>
                             </span>
-                        </>:null}    
-                   
+                    </>:null}  
                     <Divider light/>
                 </>:null}
+                
            
 
         </div></MuiThemeProvider>

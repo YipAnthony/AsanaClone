@@ -11,7 +11,22 @@ describe("<Sidebar /> component", () => {
         {name: "Team 3", tasks: []}
     ]
 
-    const wrapper = mount(<Sidebar assignedTeams={assignedTeams}/>)
+    const toggleSidebar = true
+
+    let sidebarSelection = "Home"
+
+    const setSidebarSelection = () => {
+            sidebarSelection = "My Tasks"
+    }
+
+    const wrapper = mount(
+        <Sidebar 
+            assignedTeams={assignedTeams} 
+            sidebarSelection={sidebarSelection}
+            setSidebarSelection={setSidebarSelection}
+            toggleSidebar={toggleSidebar}
+        />)
+    
 
     it ("contains a Home and My Tasks button", () => {
         expect(wrapper.exists('.sidebarHomeButton')).toEqual(true);
@@ -32,13 +47,5 @@ describe("<Sidebar /> component", () => {
         expect(wrapper.find('.homeSelected').at(0).is('span')).toEqual(true);
     })
 
-    it ("highlights My Tasks when selected", () => {
-        wrapper.find('.sidebarMyTasksButton').at(0).simulate('click')
-        expect(wrapper.find(".myTasksSelected").at(0).hasClass('sidebarSelected')).toEqual(true)
-    })
-
-    it ("expands/closes sidebar when clicking toggle icon", () => {
-        wrapper.find('.sidebarToggleIcon').at(0).simulate('click')
-        expect(wrapper.find('.sidebar').children().length).toBe(1)
-    })
+   
 })

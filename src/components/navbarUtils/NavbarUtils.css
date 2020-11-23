@@ -1,0 +1,22 @@
+.navbarUtils {
+    display: flex;
+}
+
+.MuiOutlinedInput-root {
+    border-radius: 40px !important;
+    /* height: 32px; */
+    width: 140px;
+}
+
+.Mui-focused {
+    margin-left: auto;
+    transition-duration: .3s;
+    width: 600px !important;
+    transition-duration: .2s;
+}
+
+.centerIcon,
+.MuiAvatar-root {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+}

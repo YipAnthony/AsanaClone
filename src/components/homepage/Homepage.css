@@ -1,0 +1,9 @@
+.homepageNavbar {
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.sidebarClosed {
+    margin-left: 70px;
+    transition-duration: .2s;
+}

@@ -5,9 +5,51 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  overflow-x: hidden; 
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.App {
+  display: flex;
+  height: 100vh;
+}
+
+.mainContents {
+  width: calc(100% - 200px);
+  height: 100%;
+  transition-duration: .3s;
+}
+
+.mainContentsClosed {
+  width: 100%;
+  height: 100%;
+  transition-duration: .2s;
+}
+
+.mainNavbar {
+  height: 72px;
+  display: flex;
+}
+
+.navbarUtilsCSS {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 30px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%
+}
+
+.centerIcon {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.clickable:hover {
+  cursor: pointer;
 }
