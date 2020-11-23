@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import ToggleIcon from '@material-ui/icons/MenuOpen';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import AddIcon from '@material-ui/icons/Add';
+import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
@@ -17,12 +18,16 @@ const theme = createMuiTheme({
     palette: {
       primary: {
         main: '#cbd4db'
+      },
+      secondary: {
+          main: '#949da5'
       }
     }
   });
 
 const sidebarMinimizedStyle = {
-    width: "50px"
+    width: "50px",
+
 }
 
 const sidebarButtonStyle = {
@@ -48,17 +53,27 @@ export default function Sidebar(props) {
 
     return (
         <MuiThemeProvider theme={theme}>
-        <div className="sidebar" style={toggleSidebar ? null: sidebarMinimizedStyle}>
+        <div className={`sidebar ${toggleSidebar ? null: "sidebarMinimized"}`}>
             <div className="sidebarRow d-flex">
-                {toggleSidebar ? <Typography className="sidebarLogo" variant="h5"><strong>clonasana</strong></Typography>
-                    :null}
-                
+                {toggleSidebar ? 
+                <>
+                <Typography className="sidebarLogo" variant="h5"><strong>clonasana</strong></Typography>
                 <Button 
                     theme={theme}
                     className="sidebarToggleIcon sidebarButtons" 
                     color="primary" 
                     onClick={handleToggleIconClick}
-                >{<ToggleIcon />}</Button>
+                >{<ToggleIcon />}</Button>   
+                </>  
+                    : <Button 
+                        className="sidebarToggleMinimized" 
+                        theme={theme}
+                        color="secondary" 
+                        onClick={handleToggleIconClick}
+                        >{<ViewHeadlineIcon />}</Button> 
+                }
+                
+                
             </div>
             {toggleSidebar ? 
                 <>
